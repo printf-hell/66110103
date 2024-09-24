@@ -51,100 +51,102 @@ export default function AuthPage() {
      setOpenSnackbar(true);
    }
  };
+
+
  const handleRegisterSubmit = async (e) => {
-    e.preventDefault();
-    if (registerPassword !== registerConfirmPassword) {
-      setSnackbarMessage('Passwords do not match');
-      setSnackbarSeverity('error');
-      setOpenSnackbar(true);
-      return;
-    }
- 
- 
-    try {
-      const response = await fetch('/api/users/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: registerName,
-          email: registerEmail,
-          password_hash: registerPassword,
-        }),
-      });
- 
- 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Registration failed');
-      }
- 
- 
-      const data = await response.json();
-      setSnackbarMessage('Registration successful!');
-      setSnackbarSeverity('success');
-      setOpenSnackbar(true);
-      // Handle successful registration (e.g., redirect)
-    } catch (error) {
-      setSnackbarMessage(error.message);
-      setSnackbarSeverity('error');
-      setOpenSnackbar(true);
-    }
-  };
- 
- 
-  return (
-    <Grid container spacing={2} style={{ height: '100vh', justifyContent: 'center', alignItems: 'center' }}>
-      {/* Login Section */}
-      <Grid item xs={12} sm={6}>
-        <Paper elevation={3} style={{ padding: '20px' }}>
-          <Typography variant="h5" gutterBottom>
-            Login
-          </Typography>
-          <form onSubmit={handleLoginSubmit}>
-            <TextField
-              fullWidth
-              label="Email"
-              variant="outlined"
-              margin="normal"
-              type="email"
-              value={loginEmail}
-              onChange={(e) => setLoginEmail(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              label="Password"
-              variant="outlined"
-              margin="normal"
-              type="password"
-              value={loginPassword}
-              onChange={(e) => setLoginPassword(e.target.value)}
-            />
-            <Button variant="contained" color="primary" fullWidth style={{ marginTop: '16px' }} type="submit">
-              Login
-            </Button>
-          </form>
-        </Paper>
-      </Grid>
- 
- 
-      {/* Register Section */}
-      <Grid item xs={12} sm={6}>
-        <Paper elevation={3} style={{ padding: '20px' }}>
-          <Typography variant="h5" gutterBottom>
-            Register
-          </Typography>
-          <form onSubmit={handleRegisterSubmit}>
-            <TextField
-              fullWidth
-              label="Name"
-              variant="outlined"
-              margin="normal"
-              value={registerName}
-              onChange={(e) => setRegisterName(e.target.value)}
-            />
-             <TextField
+   e.preventDefault();
+   if (registerPassword !== registerConfirmPassword) {
+     setSnackbarMessage('Passwords do not match');
+     setSnackbarSeverity('error');
+     setOpenSnackbar(true);
+     return;
+   }
+
+
+   try {
+     const response = await fetch('/api/users/create', {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         username: registerName,
+         email: registerEmail,
+         password_hash: registerPassword,
+       }),
+     });
+
+
+     if (!response.ok) {
+       const errorData = await response.json();
+       throw new Error(errorData.detail || 'Registration failed');
+     }
+
+
+     const data = await response.json();
+     setSnackbarMessage('Registration successful!');
+     setSnackbarSeverity('success');
+     setOpenSnackbar(true);
+     // Handle successful registration (e.g., redirect)
+   } catch (error) {
+     setSnackbarMessage(error.message);
+     setSnackbarSeverity('error');
+     setOpenSnackbar(true);
+   }
+ };
+
+
+ return (
+   <Grid container spacing={2} style={{ height: '100vh', justifyContent: 'center', alignItems: 'center' }}>
+     {/* Login Section */}
+     <Grid item xs={12} sm={6}>
+       <Paper elevation={3} style={{ padding: '20px' }}>
+         <Typography variant="h5" gutterBottom>
+           Login
+         </Typography>
+         <form onSubmit={handleLoginSubmit}>
+           <TextField
+             fullWidth
+             label="Email"
+             variant="outlined"
+             margin="normal"
+             type="email"
+             value={loginEmail}
+             onChange={(e) => setLoginEmail(e.target.value)}
+           />
+           <TextField
+             fullWidth
+             label="Password"
+             variant="outlined"
+             margin="normal"
+             type="password"
+             value={loginPassword}
+             onChange={(e) => setLoginPassword(e.target.value)}
+           />
+           <Button variant="contained" color="primary" fullWidth style={{ marginTop: '16px' }} type="submit">
+             Login
+           </Button>
+         </form>
+       </Paper>
+     </Grid>
+
+
+     {/* Register Section */}
+     <Grid item xs={12} sm={6}>
+       <Paper elevation={3} style={{ padding: '20px' }}>
+         <Typography variant="h5" gutterBottom>
+           Register
+         </Typography>
+         <form onSubmit={handleRegisterSubmit}>
+           <TextField
+             fullWidth
+             label="Name"
+             variant="outlined"
+             margin="normal"
+             value={registerName}
+             onChange={(e) => setRegisterName(e.target.value)}
+           />
+           <TextField
              fullWidth
              label="Email"
              variant="outlined"
